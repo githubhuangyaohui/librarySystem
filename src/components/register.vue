@@ -1,5 +1,5 @@
 <template>
-    <body id="poster">
+    <body id="poster" class="back-image">
     <el-form class="register-container" label-position="left" label-width="0px">
         <h3 class="register_title">图书管理系统</h3>
         <el-form-item class="register_item">
@@ -121,8 +121,6 @@ export default {
         color: #505458;
     }
     #poster {
-        /*background: #409EFF;*/
-        background: url("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1705581946,4177791147&fm=26&gp=0.jpg");
         height: 100%;
         width: 100%;
         background-size: cover;

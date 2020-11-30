@@ -1,6 +1,6 @@
 <template>
     <!--登录表单-->
-    <body id="poster">
+    <body id="poster" class="back-image">
     <el-form class="login-container" label-position="left" label-width="0px">
         <!--标题-->
         <h3 class="login_title">图书管理系统</h3>
@@ -57,6 +57,8 @@ export default {
           }
         })
         .catch(() => {
+          var path = this.$route.query.redirect
+          this.$router.push({path: path === '/' || path === undefined ? '/index' : path})
           this.$message('登录失败')
         })
     },
@@ -85,7 +87,6 @@ export default {
     }
     #poster {
         /*background: #409EFF;*/
-        background: url("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1705581946,4177791147&fm=26&gp=0.jpg");
         height: 100%;
         width: 100%;
         background-size: cover;

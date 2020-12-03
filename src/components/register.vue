@@ -35,15 +35,16 @@
         <el-form-item class="register_item">
             <el-card class="register_item2">
                 <el-tag style="width: 50px">性别</el-tag>
-                <el-radio v-model="loginForm.sex" label="true">男</el-radio>
-                <el-radio v-model="loginForm.sex" label="false">女</el-radio>
+                <el-radio v-model="loginForm.sex" label="1">男</el-radio>
+                <el-radio v-model="loginForm.sex" label="2">女</el-radio>
             </el-card>
         </el-form-item>
         <el-form-item class="register_item">
             <el-card class="register_item2">
                 <el-tag style="width: 50px">角色</el-tag>
-                <el-radio v-model="loginForm.roleId" label="true">学生</el-radio>
-                <el-radio v-model="loginForm.roleId" label="false">管理员</el-radio>
+                <el-radio v-model="loginForm.roleId" label="1">系统管理员</el-radio>
+                <el-radio v-model="loginForm.roleId" label="2">图书管理员</el-radio>
+                <el-radio v-model="loginForm.roleId" label="3">借阅者</el-radio>
             </el-card>
         </el-form-item>
         <el-form-item class="register_item">

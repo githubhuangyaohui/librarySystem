@@ -29,14 +29,14 @@
                             <el-image style="width: 100%;height: 100%;height: 170px;margin-bottom: 10px;" :src="item.imgpath" :fit="pic"></el-image>
                         </div>
                             <div>
-                                <a href="">{{item.bookname}}</a>
+                                <a @click="borrowBook(item.isbn)">{{item.bookname}}</a>
                             </div>
                     </el-card>
                 </el-tooltip>
             </el-row>
             <el-row>
                 <el-pagination
-                        :current-page="curPage"
+                        :current-page="searchName.curPage"
                         :page-size="12"
                         @current-change="this.initIdex">
                 </el-pagination>
@@ -67,6 +67,7 @@ export default {
         {
           id: 0,
           isbn: '',
+          type: '',
           bookname: '',
           author: '',
           imgpath: '',
@@ -200,8 +201,15 @@ export default {
         publisher: this.searchName.publisher,
         size: this.searchName.size
       }).then((resp) => {
+        this.$message(resp.msg)
         this.books = resp.data
       })
+    },
+    borrowBook (isbn) {
+      let routerJump = this.$router.resolve({
+        path: '/borrow', query: {isbn: isbn}
+      })
+      window.open(routerJump.href, '_self')
     }
   }
 }

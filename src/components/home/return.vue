@@ -8,7 +8,7 @@
                       style="width: 400px"></el-input>
             <el-button type="success"
                        plain
-                       @click="this.returnBook">点击还书</el-button>
+                       @click="returnBook">点击还书</el-button>
         </div>
     </el-card>
 </div>
@@ -28,7 +28,7 @@ export default {
       this.$axios.post('/book/return', {
         isbn: this.isbn
       }).then((resp) => {
-        this.$message(resp.msg)
+        this.$message(resp.data.msg)
       })
     }
   }

@@ -75,116 +75,6 @@ export default {
           storenum: '',
           price: '',
           description: ''
-        },
-        {
-          id: 2,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '11',
-          price: '价格',
-          description: '描述----------------=---------------------'
-        },
-        {
-          id: 3,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606730271175&di=d17aa51b2b85f28f334aa893b83300b8&imgtype=0&src=http%3A%2F%2Fhbimg.huabanimg.com%2Fba60d9bb3a3fda9beed7c813abc7c6b9cf686f8718928-lwZ4Ns_fw658',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 4,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 5,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 6,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 7,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 8,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 9,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 10,
-          isbn: '索书号',
-          bookname: '书名',
-          author: '作者',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
-        },
-        {
-          id: 11,
-          isbn: '索书号',
-          bookname: '111111111111111',
-          author: '作者111111111111111111',
-          imgpath: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2033382903,3094869815&fm=26&gp=0.jpg',
-          publisher: '出版社',
-          storenum: '',
-          price: '价格',
-          description: '描述'
         }
       ]
     }
@@ -192,7 +82,7 @@ export default {
   methods: {
     initIdex: function (curPage) {
       this.searchName.curPage = curPage
-      console.log('获取一次列表')
+      console.log('获取首页列表')
       this.$axios.post('/book/list', {
         curPage: this.searchName.curPage,
         isbn: this.searchName.isbn,
@@ -201,8 +91,9 @@ export default {
         publisher: this.searchName.publisher,
         size: this.searchName.size
       }).then((resp) => {
-        this.$message(resp.msg)
-        this.books = resp.data
+        console.log(resp.data)
+        this.$message(resp.data.msg)
+        this.books = resp.data.data.records
       })
     },
     borrowBook (isbn) {

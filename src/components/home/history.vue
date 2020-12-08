@@ -104,6 +104,7 @@ export default {
     }
   },
   mounted () {
+    this.getOrder()
   },
   methods: {
     getOrder () {
@@ -113,8 +114,8 @@ export default {
         endTime: this.searchOrder.endTime,
         isbn: this.searchOrder.isbn
       }).then((resp) => {
-        this.$message(resp.msg)
-        this.order = resp.data
+        this.$message(resp.data.msg)
+        this.order = resp.data.data
       })
     }
   }

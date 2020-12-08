@@ -44,21 +44,17 @@ export default {
           username: this.loginForm.username,
           password: this.loginForm.password
         }).then((response) => {
-          if (response.code === '200') {
-            // message是后端传回的登录失败的信息
-            this.$message(response.msg)
-            this.$store.commit('login', response.data)
-            // 页面跳转到首页
-            var path = this.$route.query.redirect
-            this.$router.push({path: path === '/' || path === undefined ? '/index' : path})
-          } else {
-            // 登录成功页面跳转，并把后端传回的登录信息，储存在store中
-            this.$message(response.data.msg)
-          }
+          console.log('登录成功')
+          console.log(response.data)
+          // message是后端传回的登录失败的信息
+          this.$message(response.data.msg)
+          // 页面跳转到首页
+          this.$store.commit('login', response.data.data)
+          this.$router.push({path: '/index'})
         })
         .catch(() => {
-          var path = this.$route.query.redirect
-          this.$router.push({path: path === '/' || path === undefined ? '/index' : path})
+          // var path = this.$route.query.redirect
+          // this.$router.push({path: path === '/' || path === undefined ? '/index' : path})
           this.$message('登录失败')
         })
     },

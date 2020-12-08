@@ -42,7 +42,12 @@ export default {
       this.$axios.post('/user/logout', {
         userId: this.$store.state.user.userid
       }).then((resp) => {
+        this.$store.commit('logout')
+        this.$message(resp.data.msg)
         this.$router.push({path: '/login'})
+      }).catch(() => {
+        this.$store.commit('logout')
+        this.$message('登出失败')
       })
     }
   }

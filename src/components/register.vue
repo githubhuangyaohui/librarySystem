@@ -42,9 +42,8 @@
         <el-form-item class="register_item">
             <el-card class="register_item2">
                 <el-tag style="width: 50px">角色</el-tag>
-                <el-radio v-model="loginForm.roleId" label="1">系统管理员</el-radio>
-                <el-radio v-model="loginForm.roleId" label="2">图书管理员</el-radio>
-                <el-radio v-model="loginForm.roleId" label="3">借阅者</el-radio>
+                <el-radio v-model="loginForm.roleId" label="1">管理员</el-radio>
+                <el-radio v-model="loginForm.roleId" label="2">借阅者</el-radio>
             </el-card>
         </el-form-item>
         <el-form-item class="register_item">

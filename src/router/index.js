@@ -11,6 +11,7 @@ import History from '../components/home/history'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/home',
@@ -21,27 +22,47 @@ export default new Router({
         {
           path: '/index',
           name: 'index',
-          component: Index
+          component: Index,
+          meta: {
+            // 设置登录拦截
+            requireAuth: true
+          }
         },
         {
           path: '/borrow',
           name: 'borrow',
-          component: Borrow
+          component: Borrow,
+          meta: {
+            // 设置登录拦截
+            requireAuth: true
+          }
         },
         {
           path: '/return',
           name: 'return',
-          component: Return
+          component: Return,
+          meta: {
+            // 设置登录拦截
+            requireAuth: true
+          }
         },
         {
           path: '/admin',
           name: 'admin',
-          component: Admin
+          component: Admin,
+          meta: {
+            // 设置登录拦截
+            requireAuth: true
+          }
         },
         {
           path: '/history',
           name: 'history',
-          component: History
+          component: History,
+          meta: {
+            // 设置登录拦截
+            requireAuth: true
+          }
         }
       ]
     },

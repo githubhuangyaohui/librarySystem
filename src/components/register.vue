@@ -2,34 +2,65 @@
     <body id="poster" class="back-image">
     <el-form class="register-container" label-position="left" label-width="0px">
         <h3 class="register_title">图书管理系统</h3>
+<!--用户名：大于5位-->
         <el-form-item class="register_item">
-            <el-input type="text" v-model="loginForm.username"
-                      auto-complete="off" placeholder="用户名"></el-input>
+            <el-input id="username"
+                      type="text"
+                      v-model="loginForm.username"
+                      auto-complete="off"
+                      placeholder="用户名"
+                      @blur="namemat">
+            </el-input>
         </el-form-item>
+<!--密码框-->
         <el-form-item class="register_item">
-            <el-input type="password" v-model="loginForm.password"
-                      auto-complete="off" placeholder="密码"></el-input>
+            <el-input id="pwd"
+                      type="password"
+                      v-model="loginForm.password"
+                      auto-complete="off"
+                      placeholder="密码"
+                      @blur="pwdmat"></el-input>
         </el-form-item>
+<!--昵称-->
         <el-form-item class="register_item">
-            <el-input type="text" v-model="loginForm.nickname"
-                      auto-complete="off" placeholder="昵称"></el-input>
+            <el-input id="nick"
+                      type="text"
+                      v-model="loginForm.nickname"
+                      auto-complete="off"
+                      placeholder="昵称"
+                      @blur="nickmat"></el-input>
         </el-form-item>
+<!--邮箱-->
         <el-form-item class="register_item">
             <el-row>
-                <el-input type="text" v-model="loginForm.email"
-                          auto-complete="off" placeholder="邮箱"></el-input>
+                <el-input id="emil"
+                          type="text"
+                          v-model="loginForm.email"
+                          auto-complete="off"
+                          placeholder="邮箱"
+                          @blur="emilmat"></el-input>
             </el-row>
         </el-form-item>
+<!--电话-->
         <el-form-item class="register_item">
             <el-row>
-                <el-input type="text" v-model="loginForm.phone"
-                          auto-complete="off" placeholder="电话"></el-input>
+                <el-input id="pho"
+                          type="text"
+                          v-model="loginForm.phone"
+                          auto-complete="off"
+                          placeholder="电话"
+                          @blur="phomat"></el-input>
             </el-row>
         </el-form-item>
+<!--地址-->
         <el-form-item class="register_item">
             <el-row>
-                <el-input type="text" v-model="loginForm.address"
-                          auto-complete="off" placeholder="地址"></el-input>
+                <el-input id="add"
+                          type="text"
+                          v-model="loginForm.address"
+                          auto-complete="off"
+                          placeholder="地址"
+                          @blur="addmat"></el-input>
             </el-row>
         </el-form-item>
         <el-form-item class="register_item">
@@ -74,10 +105,81 @@ export default {
     }
   },
   methods: {
+    namemat () {
+      var name = document.getElementById('username')
+      if (!name.value.match(/.{5,}/)) {
+        this.$message.error('用户名不少于5位')
+        name.style = 'background: #F56C6C'
+        return false
+      } else {
+        name.style = 'background: #ffffff'
+        return true
+      }
+    },
+    pwdmat () {
+      var name = document.getElementById('pwd')
+      if (!name.value.match(/^(?![a-zA-Z]+$)(?![0-9]+$)[A-Za-z0-9]{6,}$/)) {
+        this.$message.error('密码大于6位的字母数字组合')
+        name.style = 'background: #F56C6C'
+        return false
+      } else {
+        name.style = 'background: #ffffff'
+        return true
+      }
+    },
+    nickmat () {
+      var name = document.getElementById('nick')
+      if (!name.value.match(/[^ ]/)) {
+        this.$message.error('昵称不能为空')
+        name.style = 'background: #F56C6C'
+        return false
+      } else {
+        name.style = 'background: #ffffff'
+        return true
+      }
+    },
+    emilmat () {
+      var name = document.getElementById('emil')
+      if (!name.value.match(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/)) {
+        this.$message.error('邮箱格式不正确')
+        name.style = 'background: #F56C6C'
+        return false
+      } else {
+        name.style = 'background: #ffffff'
+        return true
+      }
+    },
+    phomat () {
+      var name = document.getElementById('pho')
+      if (!name.value.match(/^1[0-9]{10}$/)) {
+        this.$message.error('电话格式不正确')
+        name.style = 'background: #F56C6C'
+        return false
+      } else {
+        name.style = 'background: #ffffff'
+        return true
+      }
+    },
+    addmat () {
+      var name = document.getElementById('add')
+      if (!name.value.match(/[^ ]/)) {
+        this.$message.error('地址不能为空')
+        name.style = 'background: #F56C6C'
+        return false
+      } else {
+        name.style = 'background: #ffffff'
+        return true
+      }
+    },
     register () {
-      this.$axios
-        .post('/user/register', {
-          user: {
+      if (this.namemat() &&
+        this.pwdmat() &&
+        this.nickmat() &&
+        this.emilmat() &&
+        this.phomat() &&
+        this.addmat()) {
+        this.$axios
+          .post('/user/register', {
             username: this.loginForm.username,
             password: this.loginForm.password,
             nickname: this.loginForm.nickname,
@@ -86,13 +188,16 @@ export default {
             address: this.loginForm.address,
             sex: this.loginForm.sex,
             roleId: this.loginForm.roleId
-          },
-          code: this.loginForm.code
-        }).then((response) => {
-        })
-        .catch(failResponse => {
-          this.$message('注册错误')
-        })
+          }).then((response) => {
+            this.$message('注册成功')
+            this.$router.push({path: '/login'})
+          })
+          .catch(failResponse => {
+            this.$message.error('注册错误')
+          })
+      } else {
+        this.$message.error('请按格式填写')
+      }
     }
   }
 }

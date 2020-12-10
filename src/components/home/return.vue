@@ -25,8 +25,10 @@ export default {
   methods: {
     returnBook () {
       console.log('还书')
-      this.$axios.post('/book/return', {
-        isbn: this.isbn
+      this.$axios.get('/book/return', {
+        params: {
+          isbn: this.isbn
+        }
       }).then((resp) => {
         this.$message(resp.data.msg)
       })

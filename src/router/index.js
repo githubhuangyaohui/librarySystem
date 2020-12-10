@@ -8,6 +8,12 @@ import Borrow from '../components/home/borrow'
 import Return from '../components/home/return'
 import Admin from '../components/home/admin'
 import History from '../components/home/history'
+import librarian from '../components/librarian'
+import books from '../components/librarian/books/books'
+import userInfo from '../components/librarian/userInfo'
+import add from '../components/librarian/books/add'
+import personal from '../components/librarian/personal'
+import record from '../components/librarian/books/record'
 Vue.use(Router)
 
 export default new Router({
@@ -80,6 +86,36 @@ export default new Router({
       path: '/',
       name: 'index',
       redirect: '/index'
+    },
+    {
+      path: '/librarian',
+      name: 'librarian',
+      component: librarian
+    },
+    {
+      path: '/books',
+      name: 'books',
+      component: books
+    },
+    {
+      path: '/add',
+      name: 'add',
+      component: add
+    },
+    {
+      path: '/userInfo',
+      name: 'userInfo',
+      component: userInfo
+    },
+    {
+      path: '/personal',
+      name: 'personal',
+      component: personal
+    },
+    {
+      path: '/record',
+      name: 'record',
+      component: record
     }
   ]
 })

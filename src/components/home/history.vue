@@ -44,6 +44,13 @@
                       v-if="item.expireStatus==='2'">未还</el-card>
             </el-card>
         </div>
+        <el-row>
+            <el-pagination
+                    :current-page="searchOrder.curPage"
+                    :page-size="5"
+                    @current-change="getOrder">
+            </el-pagination>
+        </el-row>
     </el-card>
 </div>
 </template>
@@ -55,9 +62,11 @@ export default {
     return {
       searchOrder: {
         userId: '',
+        username: '',
         startTime: '',
         endTime: '',
-        isbn: ''
+        curPage: 1,
+        pageSize: 5
       },
       order: [{
         isbn: '0001',
@@ -104,18 +113,23 @@ export default {
     }
   },
   mounted () {
-    this.getOrder()
+    this.getOrder(1)
   },
   methods: {
-    getOrder () {
-      this.$axios.post('/order/detail', {
-        userId: this.$store.state.user.userid,
-        startTime: this.searchOrder.startTime,
-        endTime: this.searchOrder.endTime,
-        isbn: this.searchOrder.isbn
+    getOrder: function (curPage) {
+      this.searchOrder.curPage = curPage
+      this.$axios.get('/order/oneuserDetail', {
+        params: {
+          userId: this.$store.state.user.userid,
+          username: this.$store.state.user.username,
+          startTime: this.searchOrder.startTime,
+          endTime: this.searchOrder.endTime,
+          curPage: this.searchOrder.curPage,
+          pageSize: this.searchOrder.pageSize
+        }
       }).then((resp) => {
         this.$message(resp.data.msg)
-        this.order = resp.data.data
+        this.order = resp.data.data.list
       })
     }
   }

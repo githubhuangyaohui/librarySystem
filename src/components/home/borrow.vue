@@ -75,13 +75,15 @@ export default {
     },
     getBook (isbn) {
       console.log('图书信息')
-      this.$axios.post('/book/list', {
-        curPage: 1,
-        isbn: isbn,
-        bookname: '',
-        author: '',
-        publisher: '',
-        size: 1
+      this.$axios.get('/book/list', {
+        params: {
+          curPage: 1,
+          isbn: this.book.isbn,
+          bookname: '',
+          author: '',
+          publisher: '',
+          size: 1
+        }
       }).then((resp) => {
         this.$message(resp.data.msg)
         this.book = resp.data.data.records

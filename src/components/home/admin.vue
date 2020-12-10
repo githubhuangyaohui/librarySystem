@@ -128,17 +128,17 @@ export default {
     return {
       dig: false,
       data: {
-        username: '黑夜的孩子',
-        password: '111111',
-        nickname: 'nikename',
-        email: '11111@qq.com',
-        phone: '1211212121',
-        address: '加大回答是倒是埃松加的撒娇大',
-        sex: '2',
-        createTime: '1020-12-21',
-        lastTime: '1020-12-21',
+        username: '',
+        password: '',
+        nickname: '',
+        email: '',
+        phone: '',
+        address: '',
+        sex: '',
+        createTime: '',
+        lastTime: '',
         status: '',
-        roleId: '1'
+        roleId: ''
       }
     }
   },
@@ -200,9 +200,11 @@ export default {
     },
     getMessge () {
       console.log('获取个人信息')
-      this.$axios.post('/user/getPersonInfo', {
-        id: this.$store.state.user.userid,
-        username: this.$store.state.user.username
+      this.$axios.get('/user/getPersonInfo', {
+        params: {
+          id: this.$store.state.user.userid,
+          username: this.$store.state.user.username
+        }
       }).then((resp) => {
         console.log(resp.data)
         this.$message(resp.data.msg)
@@ -217,7 +219,7 @@ export default {
         this.emilmat() &&
         this.phomat() &&
         this.addmat()) {
-        this.$axios.post('user/edit', {
+        this.$axios.get('user/edit', {
           id: this.$store.state.user.userid,
           username: this.$store.state.user.username,
           password: this.data.password,
@@ -247,13 +249,13 @@ export default {
 .admin-item{
     width: 300px;
     margin: 10px;
-    font-size: 1.5em;
+    font-size: 1em;
     float: left;
 }
 .admin-item-index{
     width: 100px;
     margin: 10px;
-    font-size: 1.5em;
+    font-size: 1em;
     float: left;
     background: #909399;
 }

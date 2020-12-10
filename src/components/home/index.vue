@@ -83,13 +83,15 @@ export default {
     initIdex: function (curPage) {
       this.searchName.curPage = curPage
       console.log('获取首页列表')
-      this.$axios.post('/book/list', {
-        curPage: this.searchName.curPage,
-        isbn: this.searchName.isbn,
-        bookname: this.searchName.bookname,
-        author: this.searchName.author,
-        publisher: this.searchName.publisher,
-        size: this.searchName.size
+      this.$axios.get('/book/list', {
+        params: {
+          curPage: this.searchName.curPage,
+          isbn: this.searchName.isbn,
+          bookname: this.searchName.bookname,
+          author: this.searchName.author,
+          publisher: this.searchName.publisher,
+          size: this.searchName.size
+        }
       }).then((resp) => {
         console.log(resp.data)
         this.$message(resp.data.msg)

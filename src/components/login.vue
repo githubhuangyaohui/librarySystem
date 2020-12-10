@@ -33,7 +33,21 @@ export default {
         username: '',
         password: ''
       },
-      responseResult: []
+      responseResult: [],
+      role: {
+        nickname: '',
+        roleId: 2,
+        roleName: '',
+        permissionList: [
+          {
+            permissionCode: '',
+            menuCode: '',
+            permissionName: '',
+            menuName: '',
+            requiredPermission: ''
+          }
+        ]
+      }
     }
   },
   methods: {
@@ -50,13 +64,32 @@ export default {
           this.$message(response.data.msg)
           // 页面跳转到首页
           this.$store.commit('login', response.data.data)
-          this.$router.push({path: '/index'})
+          this.getRole()
         })
         .catch(() => {
           // var path = this.$route.query.redirect
           // this.$router.push({path: path === '/' || path === undefined ? '/index' : path})
           this.$message('登录失败')
         })
+    },
+    getRole () {
+      console.log('获取权限')
+      this.$axios.get('/user/getPermission', {
+        params: {
+          username: this.$store.state.user.username
+        }
+      }).then((resp) => {
+        this.$message(resp.data.msg)
+        this.role = resp.data.data
+        // eslint-disable-next-line eqeqeq
+        if (this.role.roleId == '2') {
+          this.$router.push({path: '/index'})
+        } else {
+          this.$router.push({path: '/librarian'})
+        }
+      }).catch(() => {
+        this.message('获取权限失败')
+      })
     },
     register () {
       this.$router.push({path: '/register'})

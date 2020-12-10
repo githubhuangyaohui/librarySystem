@@ -90,32 +90,56 @@ export default new Router({
     {
       path: '/librarian',
       name: 'librarian',
-      component: librarian
+      component: librarian,
+      meta: {
+        // 设置登录拦截
+        requireAuth: true
+      }
     },
     {
       path: '/books',
       name: 'books',
-      component: books
+      component: books,
+      meta: {
+        // 设置登录拦截
+        requireAuth: true
+      }
     },
     {
       path: '/add',
       name: 'add',
-      component: add
+      component: add,
+      meta: {
+        // 设置登录拦截
+        requireAuth: true
+      }
     },
     {
       path: '/userInfo',
       name: 'userInfo',
-      component: userInfo
+      component: userInfo,
+      meta: {
+        // 设置登录拦截
+        requireAuth: true
+      }
     },
     {
       path: '/personal',
       name: 'personal',
-      component: personal
+      component: personal,
+      meta: {
+        // 设置登录拦截
+        requireAuth: true
+      }
     },
     {
       path: '/record',
       name: 'record',
-      component: record
+      component: record,
+      meta: {
+        // 设置登录拦截
+        requireAuth: true
+      }
     }
   ]
 })

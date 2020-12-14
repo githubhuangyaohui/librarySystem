@@ -10,7 +10,7 @@
                 </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item command="personal" >个人中心</el-dropdown-item>
-                        <el-dropdown-item command="logout" divided >退出登录</el-dropdown-item>
+                        <el-dropdown-item @click="logout" divided >退出登录</el-dropdown-item>
                     </el-dropdown-menu>
               </el-dropdown>
           </div>
@@ -54,7 +54,7 @@ export default {
       ],
       isCollapse: false,
       user: {
-        userName: '杨荣东'
+        userName: this.$store.state.user.username
 
       },
       imgURL: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1607003387595&di=e1d64b9656b583c5e1be2edbaf3bc6f1&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2Fw600h407%2F20180104%2FZIPq-fyqincu1601826.jpg'
@@ -77,6 +77,20 @@ export default {
     }
   },
   methods: {
+    logout () {
+      this.$axios.get('/user/logout', {
+        params: {
+          userId: this.$store.state.user.id
+        }
+      }).then((resp) => {
+        this.$store.commit('logout')
+        this.$message(resp.data.msg)
+        this.$router.push({path: '/login'})
+      }).catch(() => {
+        // this.$store.commit('logout')
+        this.$message('登出失败')
+      })
+    },
     commandHandler (cmd) {
       // 退出登录
       // eslint-disable-next-line eqeqeq

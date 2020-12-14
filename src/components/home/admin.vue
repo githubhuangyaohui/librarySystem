@@ -13,7 +13,7 @@
                 </div>
             </el-row>
             <el-row>
-                <div v-if="data.roleId=='1'">
+                <div v-if="data.roleId=='2'">
                     <el-card class="admin-item" style="background: #409EFF;float: right">借阅者</el-card>
                 </div>
                 <div v-else>
@@ -202,13 +202,13 @@ export default {
       console.log('获取个人信息')
       this.$axios.get('/user/getPersonInfo', {
         params: {
-          id: this.$store.state.user.userid,
+          id: this.$store.state.user.id,
           username: this.$store.state.user.username
         }
       }).then((resp) => {
         console.log(resp.data)
         this.$message(resp.data.msg)
-        this.books = resp.data.data
+        this.data = resp.data.data
         this.$store.commit('login', resp.data.data)
       })
     },
@@ -219,8 +219,8 @@ export default {
         this.emilmat() &&
         this.phomat() &&
         this.addmat()) {
-        this.$axios.get('user/edit', {
-          id: this.$store.state.user.userid,
+        this.$axios.post('user/edit', {
+          id: this.$store.state.user.id,
           username: this.$store.state.user.username,
           password: this.data.password,
           nickname: this.data.nickname,

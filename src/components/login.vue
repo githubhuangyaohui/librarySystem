@@ -1,6 +1,6 @@
 <template>
     <!--登录表单-->
-    <body id="poster" class="back-image">
+    <div id="poster" class="back-image">
     <el-form class="login-container" label-position="left" label-width="0px">
         <!--标题-->
         <h3 class="login_title">图书管理系统</h3>
@@ -21,7 +21,7 @@
             <el-button type="primary" plain round v-on:click="register">注册</el-button>
         </el-form-item>
     </el-form>
-    </body>
+    </div>
 </template>
 
 <script>
@@ -52,19 +52,27 @@ export default {
   },
   methods: {
     login () {
+      this.$store.commit('logout')
       this.$axios
         .post('/user/login', {
           // 携带参数
           username: this.loginForm.username,
           password: this.loginForm.password
         }).then((response) => {
-          console.log('登录成功')
-          console.log(response.data)
-          // message是后端传回的登录失败的信息
-          this.$message(response.data.msg)
-          // 页面跳转到首页
-          this.$store.commit('login', response.data.data)
-          this.getRole()
+          if (response.data.code === '200') {
+            console.log('登录成功')
+            console.log(response.data)
+            // message是后端传回的登录失败的信息
+            this.$message(response.data.msg)
+            // 页面跳转到首页
+            this.$store.commit('login', response.data.data)
+            // console.log(response)
+            // console.log(response['authorization'])
+            console.log(response)
+            this.$store.commit('saveAuthorization', response.headers.authorization)
+            // this.$axios.defaults.headers.common['Authorization'] = this.$store.state.authorization
+            this.getRole(response.headers.authorization)
+          }
         })
         .catch(() => {
           // var path = this.$route.query.redirect
@@ -72,11 +80,15 @@ export default {
           this.$message('登录失败')
         })
     },
-    getRole () {
+    getRole (authorization) {
       console.log('获取权限')
+      console.log(this.$store.state.authorization)
       this.$axios.get('/user/getPermission', {
         params: {
           username: this.$store.state.user.username
+        },
+        headers: {
+          authorization: authorization
         }
       }).then((resp) => {
         this.$message(resp.data.msg)
@@ -110,7 +122,7 @@ export default {
         box-shadow: 0 0 25px #cac6c6;
     }
     .login_title {
-        margin: 0px auto 40px auto;
+        margin: 0 auto 40px auto;
         text-align: center;
         color: #505458;
     }

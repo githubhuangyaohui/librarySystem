@@ -92,7 +92,7 @@ export default {
     borrowBook (isbn) {
       console.log('借书')
       this.$axios.post('/book/borrow', {
-        userId: this.$store.state.user.userid,
+        userId: this.$store.state.user.id,
         isbn: isbn
       }).then((resp) => {
         console.log(resp.data)

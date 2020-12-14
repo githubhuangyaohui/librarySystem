@@ -72,13 +72,6 @@
         </el-form-item>
         <el-form-item class="register_item">
             <el-card class="register_item2">
-                <el-tag style="width: 50px">角色</el-tag>
-                <el-radio v-model="loginForm.roleId" label="1">管理员</el-radio>
-                <el-radio v-model="loginForm.roleId" label="2">借阅者</el-radio>
-            </el-card>
-        </el-form-item>
-        <el-form-item class="register_item">
-            <el-card class="register_item2">
                 <el-button type="primary" round v-on:click="register">注册</el-button>
             </el-card>
         </el-form-item>
@@ -99,15 +92,14 @@ export default {
         email: '',
         phone: '',
         address: '',
-        sex: '',
-        roleId: ''
+        sex: ''
       }
     }
   },
   methods: {
     namemat () {
       var name = document.getElementById('username')
-      if (!name.value.match(/.{5,}/)) {
+      if (!name.value.match(/.{5,15}/)) {
         this.$message.error('用户名不少于5位')
         name.style = 'background: #F56C6C'
         return false
@@ -129,7 +121,7 @@ export default {
     },
     nickmat () {
       var name = document.getElementById('nick')
-      if (!name.value.match(/[^ ]/)) {
+      if (!name.value.match(/.{5,15}/)) {
         this.$message.error('昵称不能为空')
         name.style = 'background: #F56C6C'
         return false
@@ -186,11 +178,14 @@ export default {
             email: this.loginForm.email,
             phone: this.loginForm.phone,
             address: this.loginForm.address,
-            sex: this.loginForm.sex,
-            roleId: this.loginForm.roleId
+            sex: this.loginForm.sex
           }).then((response) => {
-            this.$message('注册成功')
-            this.$router.push({path: '/login'})
+            if (response.data.code === '200') {
+              this.$message('注册成功')
+              this.$router.push({path: '/login'})
+            } else {
+              this.$message('注册失败')
+            }
           })
           .catch(failResponse => {
             this.$message.error('注册错误')

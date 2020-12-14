@@ -32,16 +32,16 @@
                          style="width: 250px">借书时间:{{item.borrowTime}}</el-card>
                 <el-card class="history-item-card"
                          style="width: 250px"
-                      v-if="item.expireStatus==='1'">还书时间:{{item.returnTime}}</el-card>
+                      v-if="item.expireStatus===1">还书时间:{{item.returnTime}}</el-card>
                 <el-card class="history-item-card"
                          style="width: 250px"
-                         v-if="item.expireStatus==='2'">到期时间:{{item.dueTime}}</el-card>
+                         v-if="item.expireStatus===2">到期时间:{{item.dueTime}}</el-card>
                 <el-card class="history-item-card"
                          style="float: right;background: #909399"
-                      v-if="item.expireStatus==='1'">已还</el-card>
+                      v-if="item.expireStatus===1">已还</el-card>
                 <el-card class="history-item-card"
                       style="float: right;background: #E6A23C"
-                      v-if="item.expireStatus==='2'">未还</el-card>
+                      v-if="item.expireStatus===2">未还</el-card>
             </el-card>
         </div>
         <el-row>
@@ -81,34 +81,6 @@ export default {
         user: {
           username: 'persistenthuang'
         }
-      },
-      {
-        isbn: '12',
-        borrowTime: '111',
-        returnTime: '111',
-        dueTime: '12111',
-        expireStatus: '2',
-        userId: '11221',
-        book: {
-          bookname: '121221'
-        },
-        user: {
-          username: '122121'
-        }
-      },
-      {
-        isbn: 'sa1111d',
-        borrowTime: 'adasdsa',
-        returnTime: 'adsadsa',
-        dueTime: 'adasd',
-        expireStatus: '1',
-        userId: 'adsa',
-        book: {
-          bookname: 'adas'
-        },
-        user: {
-          username: 'adsad'
-        }
       }]
     }
   },
@@ -120,7 +92,7 @@ export default {
       this.searchOrder.curPage = curPage
       this.$axios.get('/order/oneuserDetail', {
         params: {
-          userId: this.$store.state.user.userid,
+          userId: this.$store.state.user.id,
           username: this.$store.state.user.username,
           startTime: this.searchOrder.startTime,
           endTime: this.searchOrder.endTime,
@@ -129,6 +101,7 @@ export default {
         }
       }).then((resp) => {
         this.$message(resp.data.msg)
+        console.log(resp)
         this.order = resp.data.data.list
       })
     }

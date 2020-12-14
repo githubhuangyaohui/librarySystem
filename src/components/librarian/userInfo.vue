@@ -46,10 +46,6 @@ export default {
     return {
       tableData: [
         {
-          id: '1',
-          nickname: '1',
-          createTime: '1',
-          lastTime: '1'
         }
       ],
       limit: 10,

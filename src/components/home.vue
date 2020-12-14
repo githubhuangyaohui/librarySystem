@@ -40,7 +40,7 @@ export default {
     logout () {
       this.$axios.get('/user/logout', {
         params: {
-          userId: this.$store.state.user.userid
+          userId: this.$store.state.user.id
         }
       }).then((resp) => {
         this.$store.commit('logout')

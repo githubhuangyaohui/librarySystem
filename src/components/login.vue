@@ -88,19 +88,19 @@ export default {
           username: this.$store.state.user.username
         },
         headers: {
-          authorization: authorization
+          Authorization: authorization
         }
       }).then((resp) => {
         this.$message(resp.data.msg)
         this.role = resp.data.data
         // eslint-disable-next-line eqeqeq
-        if (this.role.roleId == '2') {
+        if (this.role.roleId === 2) {
           this.$router.push({path: '/index'})
         } else {
           this.$router.push({path: '/librarian'})
         }
       }).catch(() => {
-        this.message('获取权限失败')
+        this.$message('获取权限失败')
       })
     },
     register () {

@@ -10,12 +10,12 @@ import './base.css'
 
 Vue.config.productionTip = false
 var axios = require('axios')
-axios.defaults.headers.common['Authorization'] = store.state.authorization
+axios.defaults.headers['Authorization'] = store.state.authorization
 // axios.defaults.headers.common['Authorization'] =
 // axios.defaults.headers.common['Authorization'] = store.state.Authorization
 axios.defaults.baseURL = 'http://39.100.119.221:8084'
 Vue.prototype.$axios = axios
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 

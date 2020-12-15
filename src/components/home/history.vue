@@ -14,35 +14,45 @@
                 type="date"
                 placeholder="选择结束日期">
         </el-date-picker>
-         <el-button class="search-item"
-                    style="width: 100px"
-                    type="success"
-                    plain
-                    @click="getOrder">搜索</el-button>
+        <el-button class="search-item"
+                   style="width: 100px"
+                   type="success"
+                   plain
+                   @click="getOrder">搜索
+        </el-button>
     </el-card>
     <el-card class="main">
         <div slot="header" style="font-size: 1em">借书记录</div>
         <div v-for="item in order" :key="item.borrowTime">
-            <el-card class="history-item">
-                <el-card class="history-item-card"
-                         style="width: 150px">ISBN:{{item.isbn}}</el-card>
-                <el-card class="history-item-card"
-                         style="width: 150px">{{item.book.bookname}}</el-card>
-                <el-card class="history-item-card"
-                         style="width: 250px">借书时间:{{item.borrowTime}}</el-card>
-                <el-card class="history-item-card"
-                         style="width: 250px"
-                      v-if="item.expireStatus===1">还书时间:{{item.returnTime}}</el-card>
-                <el-card class="history-item-card"
-                         style="width: 250px"
-                         v-if="item.expireStatus===2">到期时间:{{item.dueTime}}</el-card>
-                <el-card class="history-item-card"
-                         style="float: right;background: #909399"
-                      v-if="item.expireStatus===1">已还</el-card>
-                <el-card class="history-item-card"
-                      style="float: right;background: #E6A23C"
-                      v-if="item.expireStatus===2">未还</el-card>
-            </el-card>
+            <div @click="returnBook(item.isbn)">
+                <el-card class="history-item">
+                    <el-card class="history-item-card"
+                             style="width: 150px">ISBN:{{ item.isbn }}
+                    </el-card>
+                    <el-card class="history-item-card"
+                             style="width: 150px">{{ item.book.bookname }}
+                    </el-card>
+                    <el-card class="history-item-card"
+                             style="width: 250px">借书时间:{{ item.borrowTime }}
+                    </el-card>
+                    <el-card class="history-item-card"
+                             style="width: 250px"
+                             v-if="item.expireStatus===1">还书时间:{{ item.returnTime }}
+                    </el-card>
+                    <el-card class="history-item-card"
+                             style="width: 250px"
+                             v-if="item.expireStatus===2">到期时间:{{ item.dueTime }}
+                    </el-card>
+                    <el-card class="history-item-card"
+                             style="float: right;background: #909399"
+                             v-if="item.expireStatus===1">已还
+                    </el-card>
+                    <el-card class="history-item-card"
+                             style="float: right;background: #E6A23C"
+                             v-if="item.expireStatus===2">未还
+                    </el-card>
+                </el-card>
+            </div>
         </div>
         <el-row>
             <el-pagination
@@ -88,6 +98,12 @@ export default {
     this.getOrder(1)
   },
   methods: {
+    returnBook (ISBN) {
+      let routerJump = this.$router.resolve({
+        path: '/return', query: {isbn: ISBN}
+      })
+      window.open(routerJump.href, '_self')
+    },
     getOrder: function (curPage) {
       this.searchOrder.curPage = curPage
       this.$axios.get('/order/oneuserDetail', {
@@ -117,7 +133,7 @@ export default {
 }
 .history-item-card{
     width: 100px;
-    height: 50%;
+    height: 70px;
     background: #409EFF;
     margin-right: 10px;
     padding-top: 0px;

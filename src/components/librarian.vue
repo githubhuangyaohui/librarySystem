@@ -10,7 +10,9 @@
                 </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item command="personal" >个人中心</el-dropdown-item>
-                        <el-dropdown-item @click="logout" divided >退出登录</el-dropdown-item>
+                        <div @click="logout">
+                        <el-dropdown-item divided >退出登录</el-dropdown-item>
+                        </div>
                     </el-dropdown-menu>
               </el-dropdown>
           </div>
@@ -78,6 +80,7 @@ export default {
   },
   methods: {
     logout () {
+      console.log('管理员登出')
       this.$axios.get('/user/logout', {
         params: {
           userId: this.$store.state.user.id
@@ -118,7 +121,7 @@ export default {
         )
         // eslint-disable-next-line eqeqeq
       } else if (cmd == 'personal') {
-        this.$router.push('/personal?id=' + this.$store.state.user.userid + '&username=' + this.$store.state.user.username)
+        this.$router.push('/personal?id=' + this.$store.state.user.id + '&username=' + this.$store.state.user.username)
       }
     },
     toPage (name) {

@@ -22,6 +22,11 @@ export default {
       isbn: ''
     }
   },
+  mounted () {
+    if (this.$route.query.isbn) {
+      this.isbn = this.$route.query.isbn
+    }
+  },
   methods: {
     returnBook () {
       console.log('还书')
@@ -31,6 +36,7 @@ export default {
         }
       }).then((resp) => {
         this.$message(resp.data.msg)
+        this.$router.push('/history')
       })
     }
   }

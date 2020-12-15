@@ -97,6 +97,7 @@ export default {
       }).then((resp) => {
         console.log(resp.data)
         this.$message(resp.data.msg)
+        this.$router.push('/history')
       })
     }
   }
